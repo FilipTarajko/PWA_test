@@ -1,4 +1,6 @@
-Te informacje są także wyświetlane na stronie index.html
+Te informacje są także dostępne:
+-na stronie https://pwa-filip-tarajko.vercel.app/
+-w pliku index.html
 
 
 Tworzenie prostego PWA
