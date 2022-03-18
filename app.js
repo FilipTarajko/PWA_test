@@ -1,3 +1,5 @@
+// ten kod próbuje załadować service worker
+
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
       navigator.serviceWorker
