@@ -4,13 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Proste PWA</title>
+    <!-- wczytanie app.js -->
     <script src="app.js"></script>
+    <!-- wczytanie manifestu -->
     <link rel="manifest" crossorigin="use-credentials" href="./manifest.json" />
 </head>
 <body>
     <h1>
-        tytuł
+        Tworzenie prostego PWA
     </h1>
+    <ul>
+        <li>
+            Należy utworzyć manifest.json:
+            <div class='code'>
+                {
+                    "short_name": "pwa-test",
+                    <br>
+                    "name": "pwa-test",
+                    <br>
+                    "start_url": "/",
+                    <br>
+                    "icons": [
+                    <br>
+                        {
+                            <br>
+                            "src": "logo_512.png",
+                            <br>
+                            "type": "image/png",
+                            <br>
+                            "sizes": "512x512"
+                            <br>
+                        }
+                        <br>
+                    ],
+                    <br>
+                    "background_color": "#33b0d6",
+                    <br>
+                    "display": "standalone",
+                    <br>
+                    "scope": "/",
+                    <br>
+                    "theme_color": "#33b0d6",
+                    <br>
+                    "shortcuts": [],
+                    <br>
+                    "description": "pwa-test"
+                    <br>
+                }
+            </div>
+        </li>
+        <li>
+            Do HTML należy dodać (wewnątrz head) wczytanie manifestu, np:
+            <br>
+            <div class="code">
+                &ltlink rel="manifest" crossorigin="use-credentials" href="./manifest.json" /&gt
+            </div>
+        </li>
+        <li>
+            Należy utworzyć serviceWorker.js:
+            <br>
+            <div class="code">
+                self.addEventListener("fetch", fetchEvent => {
+                    <br>
+                    fetchEvent.respondWith(
+                        <br>
+                      caches.match(fetchEvent.request).then(res => {
+                        <br>
+                        return res || fetch(fetchEvent.request)
+                        <br>
+                      })
+                      <br>
+                    )
+                    <br>
+                  })
+            </div>
+        </li>
+        <li>
+            W javascript należy dodać kod do wczytania service worker, np:
+            <br>
+            <div class="code">
+                if ("serviceWorker" in navigator) {
+                    <br>
+                    window.addEventListener("load", function() {
+                        <br>
+                      navigator.serviceWorker
+                      <br>
+                        .register("./serviceWorker.js")
+                        <br>
+                        .then(res => console.log("service worker registered"))
+                        <br>
+                        .catch(err => console.log("service worker not registered", err))
+                    
+                        <br>
+                    })
+                        <br>
+                  }
+            </div>
+        </li>
+        <li>
+            Należy dodać obrazek logo_512.png (o wymiarach 512x512px)
+        </li>
+    </ul>
 </body>
 </html>
+
+<style>
+    .code{
+        font-family: 'Courier New', Courier, monospace;
+        margin: 12px;
+    }
+</style>
